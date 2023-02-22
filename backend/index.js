@@ -1,9 +1,7 @@
 const { Client, Events, GatewayIntentBits } = require('discord.js')
-const { token } = require('./config.json')
+const { token, UID } = require('./config.json')
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] })
-
-const UID = '462968407042686976' // The recipients user ID => Change to yours
 
 var express = require('express');
 var app = express();
