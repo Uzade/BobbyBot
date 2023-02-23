@@ -24,15 +24,33 @@
 </main>
 
 <style>
+	:global(html){
+		background-color: rgb(15, 15, 15);
+	}
 	main {
 		text-align: center;
 		padding: 1em;
 		max-width: 240px;
 		margin: 0 auto;
 	}
-
+	label{
+		color: white;
+	}
+	input{
+		border-color: rgb(44, 44, 44);
+		background-color: black;
+		color:white;
+		margin: 1rem;
+	}
+	button{
+		background: linear-gradient(15deg, rgb(113, 0, 206), rgb(255, 0, 200));
+		color: white;
+		margin: 2rem;
+		padding: 1rem;
+		border-style: none;
+	}
 	h1 {
-		color: #ff3e00;
+		color: #fd41e4;
 		text-transform: uppercase;
 		font-size: 4em;
 		font-weight: 100;
