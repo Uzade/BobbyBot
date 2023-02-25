@@ -1,7 +1,7 @@
-<script>
+<script lang="ts">
 
-	let name = '';
-	let amount = '';
+	let name: string = '';
+	let amount: string = '';
 
 	const sendRequest = () => {
 		fetch(`http://127.0.0.1:8081/sendMessage?name=${name}&amount=${amount}`)
