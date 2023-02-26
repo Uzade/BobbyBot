@@ -65,6 +65,7 @@
 		margin: 2rem;
 		padding: 1rem;
 		border-style: none;
+		cursor: pointer;
 	}
 	h1 {
 		color: #fd41e4;
