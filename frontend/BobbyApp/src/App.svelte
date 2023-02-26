@@ -2,9 +2,9 @@
 
 	let name: string = '';
 	let amount: string = '';
-
+	let answer: Promise<Response>;
 	const sendRequest = () => {
-		fetch(`http://127.0.0.1:8081/sendMessage?name=${name}&amount=${amount}`)
+		answer=fetch(`http://127.0.0.1:8081/sendMessage?name=${name}&amount=${amount}`)		
 	}
 	
 </script>
@@ -14,12 +14,26 @@
 	<form on:submit|preventDefault={sendRequest}>
 		<label for="name">Dein Name:</label>
 		<input bind:value={name} id="name">
-		<label for="amount">Wie viel Karotten soll Bobby bekommen?</label>
+		<label for="amount">Wie viel Leckerlies soll Bobby bekommen?</label>
 		<input bind:value={amount} id="value">
 		<br/>
 		<button type="submit">
 			Send to Bobby
 		</button>
+		{#if answer!=undefined}
+			{#await answer}
+				<p>Die Opfergabe(n) werden teleportiert!</p>
+			{:then value}
+				{#if value.status==400}
+					 <p>Scotty warum bin ich nur halb Teleportier? Fülle beide Felder aus!</p>
+				{:else}
+					<p>Opfergabe übermittelt!</p>
+				{/if}
+			{:catch error}
+				<p>Scotty was ist passiert? Error: {error}</p>
+			{/await}
+		{/if}
+		
 	</form>
 </main>
 
@@ -32,6 +46,9 @@
 		padding: 1em;
 		max-width: 240px;
 		margin: 0 auto;
+	}
+	p{
+		color:white;	
 	}
 	label{
 		color: white;
