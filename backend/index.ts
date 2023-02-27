@@ -1,5 +1,7 @@
-const { Client, Events, GatewayIntentBits } = require('discord.js')
-const { token, UID } = require('./config.json')
+import { Request, Response } from 'express';
+import cors from 'cors'
+import { Client, Events, GatewayIntentBits } from 'discord.js'
+import { token, UID } from './config.json'
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] })
 
@@ -12,14 +14,18 @@ client.once(Events.ClientReady, c => {
 
 client.login(token)
 
-app.get('/sendMessage', function (req, res) {
+app.use(cors({
+    origin:"*",
+}))
+
+app.get('/sendMessage', function (req: Request, res: Response) {
     if(!req.query.amount || !req.query.name){
-        console.log(req.query.amount, req.query.name)
+        console.log('[LOG]: False input: ',req.query.amount, req.query.name)
         res.status(400).end('Invalid params!\nMake sure to add amount and name to the request')
         return
     }
-    client.users.fetch(UID, false).then((user) => {
-        user.send(`Gib Bobby jetzt ${req.query.amount} Karotten ! Sofort! \nDas ist ein Auftrag von ${req.query.name}`)
+    client.users.fetch(UID).then((user) => {
+        user.send(`Gib Bobby jetzt ${req.query.amount} Leckerlie(s) ! Sofort! \nDas ist ein Auftrag von ${req.query.name}`)
        })
    res.end('message send')
 })
