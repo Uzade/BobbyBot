@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import cors from 'cors'
 import { Client, Events, GatewayIntentBits } from 'discord.js'
 import { token, UID } from './config.json'
+import { login } from './ScottyManager/login';
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] })
 
@@ -17,6 +18,10 @@ client.login(token)
 app.use(cors({
     origin:"*",
 }))
+
+app.use(express.json())
+
+login(app)
 
 app.get('/sendMessage', function (req: Request, res: Response) {
     if(!req.query.amount || !req.query.name){
