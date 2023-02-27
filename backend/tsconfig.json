@@ -1,10 +1,13 @@
 {
     "compilerOptions": {
+        "moduleResolution":"node",
         "resolveJsonModule": true,
         "sourceMap": true,
-        "outDir": "dist",
+        "outDir": "build",
         "strict": true,
         "lib": ["esnext"],
-        "esModuleInterop": true
+        "esModuleInterop": true,
+        "target":"ES2015",
+        "module": "CommonJS"
     }
   }
