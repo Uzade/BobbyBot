@@ -2,7 +2,16 @@ POST http://127.0.0.1:8081/login HTTP/1.1
 content-type: application/json
 
 {
-    "UID": "Uzade",
-    "password": "Pa55w.rd"
+    "UID": "Veggie",
+    "password": "1423"
+}
+###
+
+POST http://127.0.0.1:8081/register HTTP/1.1
+content-type: application/json
+
+{
+    "UID": "Veggie",
+    "password": "1423"
 }
 ###
