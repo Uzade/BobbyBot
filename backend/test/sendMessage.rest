@@ -1,5 +1,10 @@
 
-GET http://127.0.0.1:8081/sendMessage?name=ich&amount=5 HTTP/1.1
+POST http://127.0.0.1:8081/sendMessage HTTP/1.1
+content-type: application/json
 
+{
+    "amount": "5",
+    "UID": "Veggie",
+    "apiKey": "/3-6XQPZ.+ypi0yVbDj7~oM+0.LPw0_82l8h+"
+}
 ###
-
