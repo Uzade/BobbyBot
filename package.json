@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "@types/node-schedule": "^2.1.0"
+  }
+}

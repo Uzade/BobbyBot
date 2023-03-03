@@ -3,8 +3,8 @@ POST http://127.0.0.1:8081/sendMessage HTTP/1.1
 content-type: application/json
 
 {
-    "amount": "5",
-    "UID": "Veggie",
-    "apiKey": "ojJU2aE9qgVo0GY5x6n.eoHtoAoTTF/QvuNMU"
+    "amount": 1,
+    "UID": "Veggie2",
+    "apiKey": "U+xKuSjTfofxmosVz4DhhKSAP~MB-MN9_Civ26T+4g0-jutA8rMaX-B"
 }
 ###

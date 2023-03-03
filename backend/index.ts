@@ -5,6 +5,8 @@ import { login } from './ScottyManager/login';
 import { register } from './ScottyManager/register';
 import sendMessage from './ScottyManager/sendMessage';
 import { logout } from './ScottyManager/logout';
+import schedule from 'node-schedule'
+import { keyReset } from './ScottyManager/apiKeyReset';
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] })
 
@@ -27,6 +29,11 @@ login(app)
 register(app)
 sendMessage(app, client)
 logout(app)
+
+schedule.scheduleJob({hour: 2, minute: 12}, () => {
+    console.log('All Users have been logged out successfully!');
+    keyReset();
+  });
 
 
 var server = app.listen(8081, function () {
