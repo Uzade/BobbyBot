@@ -14,10 +14,10 @@ const sendMessage = (app: Express, dcClient: Client) => {
                 res.status(400).end('Invalid params!\nMake sure to add amount to the request')
                 return
             }
-            db.get("SELECT opferKonto, opfergaben FROM anhaenger WHERE userName=\'"+req.body.UID+"\'",(_error,user)=>{
+            db.get("SELECT opferKonto, opfergaben FROM anhaenger WHERE userName=\'"+req.body.UID+"\'",(_error,user)=>{                
                 if(user.opferKonto>=req.body.amount){
                     dcClient.users.fetch(UID).then((user) => {
-                        user.send(`Gib Bobby jetzt ${req.body.amount} Leckerlie(s) ! Sofort! \nDas ist ein Auftrag von ${req.body.UID}`)
+                        user.send(`Gib Bobby jetzt ${req.body.amount} Leckerlie(s) ! Sofort! \nDas ist ein Auftrag von ${req.body.UID} mit der folgenden Nachricht:\n ${req.body.message}`)
                     })
                     db.exec("UPDATE anhaenger SET opfergaben="+(user.opfergaben+req.body.amount)+", lastOpfer=CURRENT_TIMESTAMP, opferKonto="+(user.opferKonto-req.body.amount)+" WHERE username=\'"+req.body.UID+"\'");
                     res.end('message send');

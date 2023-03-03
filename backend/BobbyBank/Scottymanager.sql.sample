@@ -22,3 +22,5 @@ bcrypt.hash(request.body.password, 10, (_err, hash) => {
                         response.status(400).json({Login: "False password"});                            
                     }
                 });
+
+db.exec("UPDATE anhaenger SET opferKonto=5 WHERE username=\'"+req.body.UID+"\'");
