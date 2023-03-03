@@ -15,3 +15,12 @@ content-type: application/json
     "password": "1423"
 }
 ###
+
+POST http://127.0.0.1:8081/logout HTTP/1.1
+content-type: application/json
+
+{
+    "UID": "Veggie",
+    "apiKey": "ojJU2aE9qgVo0GY5x6n.eoHtoAoTTF/QvuNMU"
+}
+###

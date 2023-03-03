@@ -1,10 +1,10 @@
-import { Request, Response } from 'express';
 import cors from 'cors'
 import { Client, Events, GatewayIntentBits } from 'discord.js'
 import { token } from './config.json'
 import { login } from './ScottyManager/login';
 import { register } from './ScottyManager/register';
 import sendMessage from './ScottyManager/sendMessage';
+import { logout } from './ScottyManager/logout';
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] })
 
@@ -26,6 +26,7 @@ app.use(express.json())
 login(app)
 register(app)
 sendMessage(app, client)
+logout(app)
 
 
 var server = app.listen(8081, function () {
