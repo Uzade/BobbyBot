@@ -7,6 +7,7 @@ import sendMessage from './ScottyManager/sendMessage';
 import { logout } from './ScottyManager/logout';
 import schedule from 'node-schedule'
 import { keyReset } from './ScottyManager/apiKeyReset';
+import { getOpferData } from './ScottyManager/getOpferData';
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] })
 
@@ -25,6 +26,7 @@ app.use(cors({
 
 app.use(express.json())
 
+getOpferData(app)
 login(app)
 register(app)
 sendMessage(app, client)

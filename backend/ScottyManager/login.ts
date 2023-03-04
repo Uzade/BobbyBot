@@ -1,6 +1,5 @@
 import { Express } from "express";
 import { Database } from "sqlite3";
-import fs from "fs";
 import path from "path";
 import bcrypt from "bcrypt";
 import generateApiKey from 'generate-api-key';

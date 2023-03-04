@@ -1,5 +1,5 @@
 import { Client } from "discord.js";
-import { Express, json } from "express";
+import { Express } from "express";
 import { UID } from '../config.json'
 import { apiKeyCheck } from "./apiKeyCheck";
 import { Database } from "sqlite3";
