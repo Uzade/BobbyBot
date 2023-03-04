@@ -5,7 +5,7 @@ import { login } from './ScottyManager/login';
 import { register } from './ScottyManager/register';
 import sendMessage from './ScottyManager/sendMessage';
 import { logout } from './ScottyManager/logout';
-import schedule from 'node-schedule'
+import schedule from 'node-schedule';
 import { keyReset } from './ScottyManager/apiKeyReset';
 import { getOpferData } from './ScottyManager/getOpferData';
 
