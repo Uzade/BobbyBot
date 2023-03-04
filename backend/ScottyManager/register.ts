@@ -16,7 +16,7 @@ export const register= (app:Express)=>{
                bcrypt.hash(request.body.password, 10, (_err, hash) => {
                 addStmt.run(request.body.UID,hash,0,2);
                 addStmt.finalize();
-                response.status(201).json({Register: "Account successfully created!"});
+                response.status(201).json({Register: "Account successfully created!", apiKey:hash});
                });
             }            
         })        

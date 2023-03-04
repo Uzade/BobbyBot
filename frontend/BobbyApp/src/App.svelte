@@ -1,14 +1,16 @@
 <script lang="ts">
   import ButttonInfo from "./ButttonInfo.svelte";
   import LoginModal from "./loginModal.svelte";
+  import RegisterModal from "./registerModal.svelte";
   import { onMount } from "svelte"
 	
 	let isLoginVisible=false;
+	let isRegisterVisible=false;
 
 	let apiKey = sessionStorage.getItem("apiKey");
 	let UID = sessionStorage.getItem("UID");
-	let amount: number = 1;
-	let message: string= '';
+	let amount: number = 0;
+	let message: string = '';
 	let answer: Promise<Response>;
 	let kontoStand: number = 0;
 
@@ -67,18 +69,31 @@
 		kontoStand=await getOpferKonto(apiKey, UID);
     }
 
+	const minOpfer = () => {
+		if(kontoStand==0){
+			return 0;
+		}
+		return 1;
+	}
+
 	onMount(refresh);
 </script>
 
 <main>
 	{#if isLoginVisible}
-		<LoginModal bind:isVisible={isLoginVisible}/>
-	{/if}	
+		<LoginModal bind:isRegisterVisible bind:isVisible={isLoginVisible}/>
+	{/if}
+
+	{#if isRegisterVisible}
+		<RegisterModal bind:isLoginVisible bind:isVisible={isRegisterVisible}/>
+	{/if}
+
 	<h1>Send Bobby Food!</h1>
 	<form on:submit|preventDefault={sendRequest}>
 		<label for="amount">Wie viel Leckerlies soll Bobby bekommen?</label>
-		<input type="range" id="amount" name="amount" bind:value={amount} min="1" max={kontoStand}> 
-		<p>{amount}</p>
+		<p>Du kannst {kontoStand} Leckerlie(s) opfern.</p>
+		<input type="range" id="amount" name="amount" bind:value={amount} min={minOpfer()} max={kontoStand}> 
+		<p>{amount} Leckerlie(s) opfern</p>
 		<label for="message">Was ist deine Nachricht?</label>
 		<input bind:value={message} id="message">
 		<br/>

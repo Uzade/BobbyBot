@@ -1,12 +1,12 @@
 <script lang="ts">
     import ModalTemplate from "./modalTemplate.svelte";
     export let isVisible=true;
-    export let isRegisterVisible;
+    export let isLoginVisible;
 
     let username;
     let password;
     const sendRequest= async ()=>{
-        const response= await fetch("http://127.0.0.1:8081/login", {
+        const response= await fetch("http://127.0.0.1:8081/register", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -17,7 +17,8 @@
             }),
         });
         const passedResponse= await response.json();
-        if(response.status==200){
+        console.log(passedResponse);
+        if(response.status==201){
             sessionStorage.setItem("apiKey", passedResponse.apiKey);
             sessionStorage.setItem("UID", username);
             isVisible=false;
@@ -26,14 +27,15 @@
             password="";
         }        
     }
-    const loadRegister= ()=>{
+
+    const loadeLogin= ()=>{
         isVisible=false;
-        isRegisterVisible=true;
+        isLoginVisible=true;
     }
 </script>
 
 <ModalTemplate>
-    <h1>Login</h1>
+    <h1>Register</h1>
     <form on:submit|preventDefault={sendRequest}>
 		<label for="username">Username</label>
 		<input bind:value={username} id="username">
@@ -41,9 +43,9 @@
 		<input bind:value={password} id="password" type="password">
 		<br/>
 		<button type="submit">
-			Login
+			Register
 		</button>
-        <button on:click={loadRegister}>Registrieren</button>
+        <button on:click={loadeLogin}>Login</button>
 	</form>
 </ModalTemplate>
 
