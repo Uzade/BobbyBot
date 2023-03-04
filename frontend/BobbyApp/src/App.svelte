@@ -1,23 +1,86 @@
 <script lang="ts">
   import ButttonInfo from "./ButttonInfo.svelte";
+  import LoginModal from "./loginModal.svelte";
+  import { onMount } from "svelte"
+	
+	let isLoginVisible=false;
 
-
-	let name: string = '';
-	let amount: string = '';
+	let apiKey = sessionStorage.getItem("apiKey");
+	let UID = sessionStorage.getItem("UID");
+	let amount: number = 1;
+	let message: string= '';
 	let answer: Promise<Response>;
+	let kontoStand: number = 0;
+
 	const sendRequest = () => {
-		answer=fetch(`http://127.0.0.1:8081/sendMessage?name=${name}&amount=${amount}`)		
+		answer= fetch("http://127.0.0.1:8081/sendMessage", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                "amount": amount,
+                "UID": UID,
+                "apiKey": apiKey,
+				"message": message
+            }),
+        });
+		refresh();	
+	}
+
+	const getOpferKonto = async (apiKey: String, UID: String) => {
+		const response= await fetch("http://127.0.0.1:8081/konto", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                "UID": UID,
+                "apiKey": apiKey
+            }),
+        });
+		const passedresponse= await response.json();
+		return passedresponse.opferKonto;
+	}
+
+	const checkApiKey = async (apiKey: String, UID: String) => {
+		const response= await fetch("http://127.0.0.1:8081/keyCheck", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+				"UID": UID,
+                "apiKey": apiKey
+            }),
+        });
+		const passedresponse= await response.json();
+		return passedresponse.apiKey;
 	}
 	
+	const refresh=  async () => {
+        if(apiKey==null || UID==null){
+			isLoginVisible=true;
+		}else if(!await checkApiKey(apiKey, UID)){
+			isLoginVisible=true;
+		}
+		kontoStand=await getOpferKonto(apiKey, UID);
+    }
+
+	onMount(refresh);
 </script>
 
 <main>
+	{#if isLoginVisible}
+		<LoginModal bind:isVisible={isLoginVisible}/>
+	{/if}	
 	<h1>Send Bobby Food!</h1>
 	<form on:submit|preventDefault={sendRequest}>
-		<label for="name">Dein Name:</label>
-		<input bind:value={name} id="name">
 		<label for="amount">Wie viel Leckerlies soll Bobby bekommen?</label>
-		<input bind:value={amount} id="value">
+		<input type="range" id="amount" name="amount" bind:value={amount} min="1" max={kontoStand}> 
+		<p>{amount}</p>
+		<label for="message">Was ist deine Nachricht?</label>
+		<input bind:value={message} id="message">
 		<br/>
 		<button type="submit">
 			Send to Bobby
