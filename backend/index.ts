@@ -1,7 +1,13 @@
-import { Request, Response } from 'express';
 import cors from 'cors'
 import { Client, Events, GatewayIntentBits } from 'discord.js'
-import { token, UID } from './config.json'
+import { token } from './config.json'
+import { login } from './ScottyManager/login';
+import { register } from './ScottyManager/register';
+import sendMessage from './ScottyManager/sendMessage';
+import { logout } from './ScottyManager/logout';
+import schedule from 'node-schedule';
+import { keyReset } from './ScottyManager/apiKeyReset';
+import { getOpferData } from './ScottyManager/getOpferData';
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] })
 
@@ -18,17 +24,19 @@ app.use(cors({
     origin:"*",
 }))
 
-app.get('/sendMessage', function (req: Request, res: Response) {
-    if(!req.query.amount || !req.query.name){
-        console.log('[LOG]: False input: ',req.query.amount, req.query.name)
-        res.status(400).end('Invalid params!\nMake sure to add amount and name to the request')
-        return
-    }
-    client.users.fetch(UID).then((user) => {
-        user.send(`Gib Bobby jetzt ${req.query.amount} Leckerlie(s) ! Sofort! \nDas ist ein Auftrag von ${req.query.name}`)
-       })
-   res.end('message send')
-})
+app.use(express.json())
+
+getOpferData(app)
+login(app)
+register(app)
+sendMessage(app, client)
+logout(app)
+
+schedule.scheduleJob({hour: 2, minute: 12}, () => {
+    console.log('All Users have been logged out successfully!');
+    keyReset();
+  });
+
 
 var server = app.listen(8081, function () {
    var host = server.address().address

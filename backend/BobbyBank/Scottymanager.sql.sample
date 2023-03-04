@@ -1,0 +1,26 @@
+CREATE TABLE IF NOT EXISTS anhaenger(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    userName VARCHAR(64) NOT NULL,
+    passwort VARCHAR(128) NOT NULL,
+    opfergaben INTEGER NOT NULL,
+    lastOpfer DATETIME,
+    opferKonto INTEGER NOT NULL,
+    apiKey VARCHAR(128)
+)
+
+
+SQL Befehle:
+//db.exec(fs.readFileSync(path.resolve(__dirname,"../BobbyBank/Scottymanager.sql")).toString());
+//db.exec(fs.readFileSync(path.resolve(__dirname,"../BobbyBank/addUser.sql")).toString());
+
+response.status(400).json({Login: "Username not existing!"});
+
+bcrypt.hash(request.body.password, 10, (_err, hash) => {
+                    if(user.passwort==hash){
+                        response.status(200).json({Login: "Success"});
+                    }else{
+                        response.status(400).json({Login: "False password"});                            
+                    }
+                });
+
+db.exec("UPDATE anhaenger SET opferKonto=5 WHERE username=\'"+req.body.UID+"\'");

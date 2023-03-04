@@ -1,0 +1,11 @@
+
+POST http://127.0.0.1:8081/sendMessage HTTP/1.1
+content-type: application/json
+
+{
+    "amount": 1,
+    "UID": "Veggie2",
+    "apiKey": "U+xKuSjTfofxmosVz4DhhKSAP~MB-MN9_Civ26T+4g0-jutA8rMaX-B",
+    "message":"Example text! Bobel: Der heilige Bobo erschuf seine Welt am ersten Tag mit Stroh!"
+}
+###
