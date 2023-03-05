@@ -1,34 +1,13 @@
 <script lang="ts">
     import ModalTemplate from "./modalTemplate.svelte";
-    export let isVisible=true;
-    export let isRegisterVisible;
-    export let refresh;
+    import { sendLogin } from "./functions/sendLogin";
 
-    let username;
-    let password;
-    const sendRequest= async ()=>{
-        const response= await fetch("http://127.0.0.1:8081/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                "UID": username,
-                "password": password
-            }),
-        });
-        const passedResponse= await response.json();
-        if(response.status==200){
-            sessionStorage.setItem("apiKey", passedResponse.apiKey);
-            sessionStorage.setItem("UID", username);
-            isVisible=false;
-            refresh();
-            //window.location.reload();
-        }else{
-            username="";
-            password="";
-        }        
-    }
+    let username: string;
+    let password: string;
+
+    export let isVisible=true;
+    export let isRegisterVisible: boolean;
+
     const loadRegister= ()=>{
         isVisible=false;
         isRegisterVisible=true;
@@ -37,7 +16,7 @@
 
 <ModalTemplate>
     <h1>Login</h1>
-    <form on:submit|preventDefault={sendRequest}>
+    <form on:submit|preventDefault={() => sendLogin(username, password)}>
 		<label for="username">Username</label>
 		<input bind:value={username} id="username">
 		<label for="password">Password</label>
