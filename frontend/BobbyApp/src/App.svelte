@@ -1,96 +1,40 @@
 <script lang="ts">
-  import ButttonInfo from "./ButttonInfo.svelte";
-  import LoginModal from "./loginModal.svelte";
-  import RegisterModal from "./registerModal.svelte";
-  import { onMount } from "svelte"
+  	import ButttonInfo from "./ButttonInfo.svelte";
+  	import LoginModal from "./loginModal.svelte";
+  	import RegisterModal from "./registerModal.svelte";
+  	import { onMount } from "svelte"
+  	import { needsReload } from "./functions/needsReload";
+  	import { getOpferKonto } from "./functions/getOpferKonto";
+	import { sendRequest } from "./functions/sendRequest";
 	
 	let isLoginVisible=false;
 	let isRegisterVisible=false;
-
-	let apiKey = sessionStorage.getItem("apiKey");
-	let UID = sessionStorage.getItem("UID");
 	let amount: number = 0;
 	let message: string = '';
 	let answer: Promise<Response>;
 	let kontoStand: number = 0;
 
-	const sendRequest = () => {
-		answer= fetch("http://127.0.0.1:8081/sendMessage", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                "amount": amount,
-                "UID": UID,
-                "apiKey": apiKey,
-				"message": message
-            }),
-        });
-		refresh();
-		amount=0;	
-	}
-
-	const getOpferKonto = async (apiKey: String, UID: String) => {
-		const response= await fetch("http://127.0.0.1:8081/konto", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                "UID": UID,
-                "apiKey": apiKey
-            }),
-        });
-		const passedresponse= await response.json();
-		return passedresponse.opferKonto;
-	}
-
-	const checkApiKey = async (apiKey: String, UID: String) => {
-		const response= await fetch("http://127.0.0.1:8081/keyCheck", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-				"UID": UID,
-                "apiKey": apiKey
-            }),
-        });
-		const passedresponse= await response.json();
-		return passedresponse.apiKey;
-	}
-	
-	const refresh=  async () => {
-        if(apiKey==null || UID==null){
-			isLoginVisible=true;
-		}else if(!await checkApiKey(apiKey, UID)){
-			isLoginVisible=true;
-		}
-		kontoStand=await getOpferKonto(apiKey, UID);
-    }
-
 	const minOpfer = () => {
-		if(kontoStand==0){
-			return 0;
-		}
-		return 1;
+		return kontoStand == 0?0:1;
 	}
 
-	onMount(refresh);
+	onMount(async () => {
+		isLoginVisible = await needsReload()
+		kontoStand = await getOpferKonto()
+	});
 </script>
 
 <main>
 	{#if isLoginVisible}
-		<LoginModal refresh={refresh} bind:isRegisterVisible bind:isVisible={isLoginVisible}/>
+		<LoginModal bind:isRegisterVisible bind:isVisible={isLoginVisible}/>
 	{/if}
 
 	{#if isRegisterVisible}
-		<RegisterModal refresh={refresh} bind:isLoginVisible bind:isVisible={isRegisterVisible}/>
+		<RegisterModal bind:isLoginVisible bind:isVisible={isRegisterVisible}/>
 	{/if}
 
 	<h1>Send Bobby Food!</h1>
-	<form on:submit|preventDefault={sendRequest}>
+	<form on:submit|preventDefault={() => sendRequest(amount, message)}>
 		<label for="amount">Wie viel Leckerlies soll Bobby bekommen?</label>
 		<p>Du kannst {kontoStand} Leckerlie(s) opfern.</p>
 		<input type="range" id="amount" name="amount" bind:value={amount} min={minOpfer()} max={kontoStand}> 
