@@ -2,6 +2,7 @@
     import ModalTemplate from "./modalTemplate.svelte";
     export let isVisible=true;
     export let isRegisterVisible;
+    export let refresh;
 
     let username;
     let password;
@@ -21,7 +22,8 @@
             sessionStorage.setItem("apiKey", passedResponse.apiKey);
             sessionStorage.setItem("UID", username);
             isVisible=false;
-            window.location.reload();
+            refresh();
+            //window.location.reload();
         }else{
             username="";
             password="";

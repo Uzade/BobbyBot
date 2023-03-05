@@ -82,11 +82,11 @@
 
 <main>
 	{#if isLoginVisible}
-		<LoginModal bind:isRegisterVisible bind:isVisible={isLoginVisible}/>
+		<LoginModal refresh={refresh} bind:isRegisterVisible bind:isVisible={isLoginVisible}/>
 	{/if}
 
 	{#if isRegisterVisible}
-		<RegisterModal bind:isLoginVisible bind:isVisible={isRegisterVisible}/>
+		<RegisterModal refresh={refresh} bind:isLoginVisible bind:isVisible={isRegisterVisible}/>
 	{/if}
 
 	<h1>Send Bobby Food!</h1>
