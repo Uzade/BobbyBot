@@ -11,7 +11,7 @@
             <p>Die Opfergabe(n) werden teleportiert!</p>
         {:then value}
             {#if value.status==400}
-                <p>Scotty warum bin ich nur halb Teleportier? Fülle beide Felder aus!</p>
+                <p>Scotty warum bin ich nicht Teleportiert? Du hast keine Leckerlies mehr übrig!</p>
             {:else}
                 <p>Opfergabe übermittelt!</p>
             {/if}

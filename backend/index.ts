@@ -8,6 +8,7 @@ import { logout } from './ScottyManager/logout';
 import schedule from 'node-schedule';
 import { keyReset } from './ScottyManager/apiKeyReset';
 import { getOpferData } from './ScottyManager/getOpferData';
+import { sessionKeyCheck } from './ScottyManager/SessionKeyCheck';
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] })
 
@@ -26,6 +27,7 @@ app.use(cors({
 
 app.use(express.json())
 
+sessionKeyCheck(app)
 getOpferData(app)
 login(app)
 register(app)

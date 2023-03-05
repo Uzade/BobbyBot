@@ -32,5 +32,3 @@ const sendMessage = (app: Express, dcClient: Client) => {
 }
 
 export default sendMessage;
-
-//kontrolle ob man genug leckerlies hat

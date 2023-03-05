@@ -25,7 +25,7 @@ export const login= (app:Express)=>{
     })
 }
 
-const apiexchange= (username:String, db:Database, response:Response)=>{
+export const apiexchange= (username:String, db:Database, response:Response)=>{
     const apiKey=generateApiKey({ method: 'string', min: 34, max: 61 });
     db.exec("UPDATE anhaenger SET apiKey =\'"+apiKey+"\' WHERE userName =\'"+username+"\'");
     response.status(200).json({Login: "Login successfull!", apiKey:apiKey});

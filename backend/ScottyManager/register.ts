@@ -3,6 +3,7 @@ import { Database } from "sqlite3";
 import fs from "fs";
 import path from "path";
 import bcrypt from "bcrypt";
+import { apiexchange } from "./login";
 
 export const register= (app:Express)=>{
 
@@ -16,7 +17,7 @@ export const register= (app:Express)=>{
                bcrypt.hash(request.body.password, 10, (_err, hash) => {
                 addStmt.run(request.body.UID,hash,0,2);
                 addStmt.finalize();
-                response.status(201).json({Register: "Account successfully created!"});
+                apiexchange(request.body.UID, db, response);
                });
             }            
         })        
