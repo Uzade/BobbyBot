@@ -17,8 +17,7 @@
             }),
         });
         const passedResponse= await response.json();
-        console.log(passedResponse);
-        if(response.status==201){
+        if(response.status==200){
             sessionStorage.setItem("apiKey", passedResponse.apiKey);
             sessionStorage.setItem("UID", username);
             isVisible=false;

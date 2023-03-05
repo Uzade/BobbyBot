@@ -4,8 +4,8 @@ content-type: application/json
 
 {
     "amount": 1,
-    "UID": "Veggie2",
-    "apiKey": "U+xKuSjTfofxmosVz4DhhKSAP~MB-MN9_Civ26T+4g0-jutA8rMaX-B",
+    "UID": "Veggie10",
+    "apiKey": "zIPp4RLrO~w16y9Fh.pKUzZpMoe.A5uaRI6/hj0SeG3rb",
     "message":"Example text! Bobel: Der heilige Bobo erschuf seine Welt am ersten Tag mit Stroh!"
 }
 ###
