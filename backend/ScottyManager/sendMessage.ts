@@ -8,7 +8,6 @@ import path from "path";
 const sendMessage = (app: Express, dcClient: Client) => { 
     const db= new Database(path.resolve(__dirname,"../BobbyBank/Karottenspeicher.db"));
     app.post('/sendMessage', async (req, res)  => {
-        console.log(req.body.apiKey);
         if(await apiKeyCheck(req.body.UID, req.body.apiKey)){
             if(!req.body.amount || !req.body.UID){
                 console.log('[LOG]: False input: ',req.body.amount, req.body.UID)
@@ -33,5 +32,3 @@ const sendMessage = (app: Express, dcClient: Client) => {
 }
 
 export default sendMessage;
-
-//kontrolle ob man genug leckerlies hat

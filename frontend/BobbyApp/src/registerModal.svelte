@@ -21,6 +21,7 @@
             sessionStorage.setItem("apiKey", passedResponse.apiKey);
             sessionStorage.setItem("UID", username);
             isVisible=false;
+            window.location.reload();
         }else{
             username="";
             password="";

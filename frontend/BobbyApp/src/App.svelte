@@ -27,7 +27,8 @@
 				"message": message
             }),
         });
-		refresh();	
+		refresh();
+		amount=0;	
 	}
 
 	const getOpferKonto = async (apiKey: String, UID: String) => {
