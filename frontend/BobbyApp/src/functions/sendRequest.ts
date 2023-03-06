@@ -2,7 +2,7 @@
 import { UID, apiKey } from "./needsReload";
 
 export const sendRequest = (amount: number, message: string) => {
-    const answer= fetch("http://127.0.0.1:8081/sendMessage", {
+    const answer= fetch("http://ashdragon.de/sendMessage", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

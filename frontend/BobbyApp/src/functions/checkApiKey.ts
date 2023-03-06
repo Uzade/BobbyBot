@@ -1,5 +1,5 @@
 export const checkApiKey = async (apiKey: String, UID: String) => {
-    const response= await fetch("http://127.0.0.1:8081/keyCheck", {
+    const response= await fetch("http://ashdragon.de/keyCheck", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
