@@ -4,6 +4,7 @@ WORKDIR /app
 COPY ./backend/BobbyBank ./BobbyBank
 COPY ./backend/dist .
 COPY ./backend/package* .
-RUN yarn install --production
+COPY ./frontend/BobbyApp/public ./static
+RUN npm install --omit=dev
 CMD [ "node", "." ]
 EXPOSE 8081
