@@ -52,6 +52,7 @@
 <style>
 	:global(html){
 		background-color: rgb(15, 15, 15);
+		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 	}
 	main {
 		text-align: center;
