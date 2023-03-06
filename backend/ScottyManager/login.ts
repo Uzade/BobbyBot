@@ -1,13 +1,11 @@
 import { Express } from "express";
 import { Database } from "sqlite3";
-import path from "path";
 import bcrypt from "bcrypt";
 import generateApiKey from 'generate-api-key';
 import { Response } from "express-serve-static-core";
 
-export const login= (app:Express)=>{
+export const login= (db: Database, app:Express)=>{
 
-    const db= new Database(path.resolve(__dirname,"../BobbyBank/Karottenspeicher.db"));
     app.post("/login",(request,response)=>{
         db.get("SELECT userName, passwort FROM anhaenger WHERE userName=\'"+request.body.UID+"\'",(_error,user)=>{           
             if(user==null){

@@ -3,12 +3,10 @@ import { Express } from "express";
 import { UID } from '../config.json'
 import { apiKeyCheck } from "./apiKeyCheck";
 import { Database } from "sqlite3";
-import path from "path";
 
-const sendMessage = (app: Express, dcClient: Client) => { 
-    const db= new Database(path.resolve(__dirname,"../BobbyBank/Karottenspeicher.db"));
+const sendMessage = (db: Database, app: Express, dcClient: Client) => { 
     app.post('/sendMessage', async (req, res)  => {
-        if(await apiKeyCheck(req.body.UID, req.body.apiKey)){
+        if(await apiKeyCheck(db, req.body.UID, req.body.apiKey)){
             if(!req.body.amount || !req.body.UID){
                 console.log('[LOG]: False input: ',req.body.amount, req.body.UID)
                 res.status(400).end('Invalid params!\nMake sure to add amount to the request')
