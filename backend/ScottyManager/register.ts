@@ -8,6 +8,10 @@ import { apiexchange } from "./login";
 export const register= (db: Database, app:Express)=>{
 
     app.post("/register",(request,response)=>{
+        if(request.body.UID==null || request.body.password==null){
+            response.status(401).json({Register: "UID or Password not set!"});
+            return;
+        }
         db.get("SELECT userName, passwort FROM anhaenger WHERE userName=\'"+request.body.UID+"\'",(_error,user)=>{           
             if(user!=null){
                 response.status(400).json({Register: "Username already existing!"});

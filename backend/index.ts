@@ -10,6 +10,7 @@ import { keyReset } from './ScottyManager/apiKeyReset';
 import { getOpferData } from './ScottyManager/getOpferData';
 import { sessionKeyCheck } from './ScottyManager/SessionKeyCheck';
 import { Database } from "sqlite3";
+import { kontoLevelUp } from './ScottyManager/kontoLevelUp';
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] })
 
@@ -39,9 +40,10 @@ register(db, app)
 sendMessage(db, app, client)
 logout(db, app)
 
-schedule.scheduleJob({hour: 2, minute: 12}, () => {
+schedule.scheduleJob({hour: 2, minute: 13}, () => {
     console.log('All Users have been logged out successfully!');
     keyReset(db);
+    kontoLevelUp(db);
   });
 
 
