@@ -26,6 +26,8 @@ app.use(cors({
     origin:"*",
 }))
 
+app.use(express.static('static'))
+
 app.use(express.json())
 
 const db = new Database("./BobbyBank/Karottenspeicher.db")
