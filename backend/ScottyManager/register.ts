@@ -5,9 +5,8 @@ import path from "path";
 import bcrypt from "bcrypt";
 import { apiexchange } from "./login";
 
-export const register= (app:Express)=>{
+export const register= (db: Database, app:Express)=>{
 
-    const db= new Database(path.resolve(__dirname,"../BobbyBank/Karottenspeicher.db"));
     app.post("/register",(request,response)=>{
         db.get("SELECT userName, passwort FROM anhaenger WHERE userName=\'"+request.body.UID+"\'",(_error,user)=>{           
             if(user!=null){

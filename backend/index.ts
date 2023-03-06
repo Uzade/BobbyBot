@@ -9,6 +9,7 @@ import schedule from 'node-schedule';
 import { keyReset } from './ScottyManager/apiKeyReset';
 import { getOpferData } from './ScottyManager/getOpferData';
 import { sessionKeyCheck } from './ScottyManager/SessionKeyCheck';
+import { Database } from "sqlite3";
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] })
 
@@ -27,16 +28,18 @@ app.use(cors({
 
 app.use(express.json())
 
-sessionKeyCheck(app)
-getOpferData(app)
-login(app)
-register(app)
-sendMessage(app, client)
-logout(app)
+const db = new Database("./BobbyBank/Karottenspeicher.db")
+
+sessionKeyCheck(db, app)
+getOpferData(db, app)
+login(db, app)
+register(db, app)
+sendMessage(db, app, client)
+logout(db, app)
 
 schedule.scheduleJob({hour: 2, minute: 12}, () => {
     console.log('All Users have been logged out successfully!');
-    keyReset();
+    keyReset(db);
   });
 
 

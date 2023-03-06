@@ -1,8 +1,6 @@
 import { Database } from "sqlite3";
-import path from "path";
 
-export const keyReset= ()=>{
+export const keyReset= (db: Database)=>{
 
-    const db= new Database(path.resolve(__dirname,"../BobbyBank/Karottenspeicher.db"));
         db.exec("UPDATE anhaenger SET apiKey=NULL");
 }
