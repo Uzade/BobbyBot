@@ -1,0 +1,26 @@
+POST http://127.0.0.1:8081/login HTTP/1.1
+content-type: application/json
+
+{
+    "UID": "Veggie10",
+    "password": "1234"
+}
+###
+
+POST http://127.0.0.1:8081/register HTTP/1.1
+content-type: application/json
+
+{
+    "UID": "Veggie2",
+    "password": "1234"
+}
+###
+
+POST http://127.0.0.1:8081/logout HTTP/1.1
+content-type: application/json
+
+{
+    "UID": "Veggie2",
+    "apiKey": "U+xKuSjTfofxmosVz4DhhKSAP~MB-MN9_Civ26T+4g0-jutA8rMaX-B"
+}
+###

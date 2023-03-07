@@ -1,23 +1,46 @@
 <script lang="ts">
-  import ButttonInfo from "./ButttonInfo.svelte";
-
-
-	let name: string = '';
-	let amount: string = '';
-	let answer: Promise<Response>;
-	const sendRequest = () => {
-		answer=fetch(`http://127.0.0.1:8081/sendMessage?name=${name}&amount=${amount}`)		
-	}
+  	import ButttonInfo from "./ButttonInfo.svelte";
+  	import LoginModal from "./loginModal.svelte";
+  	import RegisterModal from "./registerModal.svelte";
+  	import { onMount } from "svelte"
+  	import { needsReload } from "./functions/needsReload";
+  	import { getOpferKonto } from "./functions/getOpferKonto";
+	import { sendRequest } from "./functions/sendRequest";
 	
+	let isLoginVisible=false;
+	let isRegisterVisible=false;
+	let amount: number = 0;
+	let message: string = '';
+	let answer: Promise<Response>;
+	let kontoStand: number = 0;
+
+	const minOpfer = () => {
+		return kontoStand == 0?0:1;
+	}
+
+	onMount(async () => {
+		isLoginVisible = await needsReload()
+		kontoStand = await getOpferKonto()
+	});
 </script>
 
 <main>
+	{#if isLoginVisible}
+		<LoginModal bind:isRegisterVisible bind:isVisible={isLoginVisible}/>
+	{/if}
+
+	{#if isRegisterVisible}
+		<RegisterModal bind:isLoginVisible bind:isVisible={isRegisterVisible}/>
+	{/if}
+
 	<h1>Send Bobby Food!</h1>
-	<form on:submit|preventDefault={sendRequest}>
-		<label for="name">Dein Name:</label>
-		<input bind:value={name} id="name">
+	<form on:submit|preventDefault={() => sendRequest(amount, message)}>
 		<label for="amount">Wie viel Leckerlies soll Bobby bekommen?</label>
-		<input bind:value={amount} id="value">
+		<p>Du kannst {kontoStand} Leckerlie(s) opfern.</p>
+		<input type="range" id="amount" name="amount" bind:value={amount} min={minOpfer()} max={kontoStand}> 
+		<p>{amount} Leckerlie(s) opfern</p>
+		<label for="message">Was ist deine Nachricht?</label>
+		<input bind:value={message} id="message">
 		<br/>
 		<button type="submit">
 			Send to Bobby
