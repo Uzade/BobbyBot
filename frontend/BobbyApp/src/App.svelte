@@ -41,17 +41,14 @@
 		<p>{amount} Leckerlie(s) opfern</p>
 		<label for="message">Was ist deine Nachricht?</label>
 		<input bind:value={message} id="message">
-		<br/>
-		<button type="submit">
-			Send to Bobby
-		</button>
+		<button type="submit">Send to Bobby</button>
 		<ButttonInfo answer={answer}/>
 	</form>
 </main>
 
 <style>
 	:global(html){
-		background-color: rgb(15, 15, 15);
+		background-color: rgb(0, 0, 0);
 		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 	}
 	main {
@@ -63,11 +60,8 @@
 	label{
 		color: white;
 	}
-	input{
-		border-color: rgb(44, 44, 44);
-		background-color: black;
+	p{
 		color:white;
-		margin: 1rem;
 	}
 	button{
 		background: linear-gradient(15deg, rgb(113, 0, 206), rgb(255, 0, 200));
