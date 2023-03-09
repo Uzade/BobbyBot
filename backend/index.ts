@@ -11,6 +11,8 @@ import { getOpferData } from './ScottyManager/getOpferData';
 import { sessionKeyCheck } from './ScottyManager/SessionKeyCheck';
 import { Database } from "sqlite3";
 import { kontoLevelUp } from './ScottyManager/kontoLevelUp';
+import https from "https";
+import fs from "fs";
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] })
 
@@ -46,6 +48,10 @@ schedule.scheduleJob({hour: 2, minute: 13}, () => {
     kontoLevelUp(db);
   });
 
+https.createServer({
+  key: fs.readFileSync("https/privateKey.key"),
+  cert: fs.readFileSync("https/certificate.cer")
+}, app)
 
 var server = app.listen(8081, function () {
    var host = server.address().address
