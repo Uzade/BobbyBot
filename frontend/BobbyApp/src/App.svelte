@@ -70,6 +70,7 @@
 		padding: 1rem;
 		border-style: none;
 		cursor: pointer;
+		line-break: auto;
 	}
 	h1 {
 		color: #fd41e4;
