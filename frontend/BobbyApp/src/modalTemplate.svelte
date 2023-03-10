@@ -17,12 +17,12 @@
     dialog{
         color: white;
         width: 60%;
-        background-color: rgb(25, 25, 25);
+        background-color: rgb(0, 0, 0);
         border: 0;
     }
 
     dialog::backdrop{
-        background-color: rgb(15, 15, 15);
+        background-color: rgb(0, 0, 0);
         opacity: 1;
     }
 </style>

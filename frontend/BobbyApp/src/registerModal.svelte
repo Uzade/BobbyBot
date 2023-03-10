@@ -17,14 +17,15 @@
 <ModalTemplate>
     <h1>Register</h1>
     <form on:submit|preventDefault={() => sendRegister(username, password)}>
-		<label for="username">Username</label>
-		<input bind:value={username} id="username">
-		<label for="password">Password</label>
-		<input bind:value={password} id="password" type="password">
-		<br/>
-		<button type="submit">
-			Register
-		</button>
+		<div>
+			<label for="username">Username</label>
+			<input bind:value={username} id="username">
+		</div>
+		<div>
+			<label for="password">Password</label>
+			<input bind:value={password} id="password" type="password">
+		</div>
+		<button type="submit">Register</button>
         <button on:click={loadeLogin}>Login</button>
 	</form>
 </ModalTemplate>
@@ -33,14 +34,8 @@
     label{
 		color: white;
 	}
-	input{
-		border-color: rgb(44, 44, 44);
-		background-color: black;
-		color:white;
-		margin: 1rem;
-	}
 	button{
-		background: linear-gradient(15deg, rgb(113, 0, 206), rgb(255, 0, 200));
+		background: linear-gradient(45deg, rgb(113, 0, 206), rgb(255, 0, 200));
 		color: white;
 		margin: 2rem;
 		padding: 1rem;
@@ -48,8 +43,10 @@
 		cursor: pointer;
 	}
 	h1 {
-		color: #fd41e4;
-		text-transform: uppercase;
+		background: -webkit-linear-gradient(45deg, rgb(113, 0, 206), rgb(255, 0, 200));
+		-webkit-background-clip: text;
+ 		-webkit-text-fill-color: transparent;
+		/*text-shadow: 1px 1px 1px red, 2px 2px 1px red;*/
 		font-size: 4em;
 		font-weight: 100;
 	}
