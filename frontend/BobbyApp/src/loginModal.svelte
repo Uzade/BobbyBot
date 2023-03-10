@@ -22,8 +22,8 @@
 			<input bind:value={username} id="username">
 		</div>
 		<div>
-		<label for="password">Password</label>
-		<input bind:value={password} id="password" type="password">
+			<label for="password">Password</label>
+			<input bind:value={password} id="password" type="password">
 		</div>
 		<button type="submit">Login</button>
         <button on:click={loadRegister}>Register</button>
