@@ -5,7 +5,7 @@ export const apiKeyCheck= async (db: PromissingSQLite3, username:String, apiKey:
     if(apiKey==null){
         return false;
     }
-    const user = await db.getPrep("SELECT userName, apiKey FROM anhaenger WHERE userName=?", username); 
+    const user = await db.getPrepFile("ScottyManager/SQL/fetchApiKey.sql", username); 
                    
     if(user==null){
         return false;

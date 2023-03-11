@@ -12,14 +12,14 @@ export const register= (db: PromissingSQLite3, app:Express)=>{
             response.status(401).json({Register: "UID or Password not set!"});
             return;
         }
-        const user = await db.getPrep("SELECT userName, passwort FROM anhaenger WHERE userName=?", request.body.UID);
+        const user = await db.getPrepFile("ScottyManager/SQL/fetchPassword.sql", request.body.UID);
                   
         if(user!=null){
             response.status(400).json({Register: "Username already existing!"});
             return;
         }      
         bcrypt.hash(request.body.password, 10, (_err, hash) => {
-            db.execPrep(fs.readFileSync(path.resolve(__dirname,"../BobbyBank/addUser.sql")).toString(),
+            db.execPrepFile("ScottyManager/SQL/addUser.sql",
                 request.body.UID,
                 hash,
                 0,2

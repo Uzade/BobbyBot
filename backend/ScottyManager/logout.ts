@@ -15,7 +15,7 @@ export const logout= (db: PromissingSQLite3, app:Express)=>{
             response.status(400).json({Logout: "invalid api key"})
             return;
         }
-        db.execPrep("UPDATE anhaenger SET apiKey=NULL WHERE userName=?", request.body.UID);
+        db.execPrepFile("ScottyManager/SQL/emptySingleApiKey.sql", request.body.UID);
         response.status(200).json({Logout: "Logout successfully!"});
     })
 }

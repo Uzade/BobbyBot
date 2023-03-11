@@ -4,7 +4,7 @@ import { PromissingSQLite3 } from "promissing-sqlite3/lib";
 export const getOpferData= (db: PromissingSQLite3, app:Express)=>{
 
     app.post("/konto", async (request,response)=>{
-        const result= await db.getPrep("SELECT opferKonto FROM anhaenger WHERE userName=?",request.body.UID);
+        const result= await db.getPrepFile("ScottyManager/SQL/fetchKonto.sql",request.body.UID);
 
         if(result == null){
             response.status(400).json({Error: "invalid user name"})

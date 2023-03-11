@@ -1,0 +1,1 @@
+UPDATE anhaenger SET apiKey=NULL

@@ -13,7 +13,7 @@ export const login= (db: PromissingSQLite3, app:Express)=>{
             return;
         }
 
-        const user = await db.getPrep("SELECT userName, passwort FROM anhaenger WHERE userName=?", request.body.UID);
+        const user = await db.getPrepFile("ScottyManager/SQL/fetchPassword.sql", request.body.UID);
                
         if(user==null){
             response.status(400).json({Login: "Username not existing!"});
@@ -31,6 +31,6 @@ export const login= (db: PromissingSQLite3, app:Express)=>{
 
 export const apiexchange= (username:String, db: PromissingSQLite3, response:Response)=>{
     const apiKey=generateApiKey({ method: 'string', min: 34, max: 61 });
-    db.execPrep("UPDATE anhaenger SET apiKey =? WHERE userName =?", apiKey, username);
+    db.execPrepFile("ScottyManager/SQL/saveApiKey.sql", apiKey, username);
     response.status(200).json({Login: "Login successfull!", apiKey:apiKey});
 }

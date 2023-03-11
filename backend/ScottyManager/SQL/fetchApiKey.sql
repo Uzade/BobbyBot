@@ -1,1 +1,1 @@
-"SELECT userName, apiKey FROM anhaenger WHERE userName=?"
+SELECT userName, apiKey FROM anhaenger WHERE userName=?
