@@ -29,7 +29,7 @@ const sendMessage = (dbOld: Database, app: Express, dcClient: Client) => {
         dcClient.users.fetch(UID).then((user) => {
             user.send(`Gib Bobby jetzt ${req.body.amount} Leckerlie(s) ! Sofort! \nDas ist ein Auftrag von ${req.body.UID} mit der folgenden Nachricht:\n ${req.body.message}`)
         })
-        db.execPrep("UPDATE anhaenger SET opfergaben=?, lastOpfer=CURRENT_TIMESTAMP, opferKonto=? WHERE username=",
+        db.execPrep("UPDATE anhaenger SET opfergaben=?, lastOpfer=CURRENT_TIMESTAMP, opferKonto=? WHERE username=?",
             (user.opfergaben+req.body.amount),
             (user.opferKonto-req.body.amount),
             req.body.UID
