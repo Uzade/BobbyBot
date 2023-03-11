@@ -7,19 +7,25 @@ import { PromissingSQLite3 } from "promissing-sqlite3/lib";
 export const login= (db: PromissingSQLite3, app:Express)=>{
 
     app.post("/login",async (request,response) => {
-        const user = await db.get("SELECT userName, passwort FROM anhaenger WHERE userName=\'"+request.body.UID+"\'");
+
+        if(request.body.UID == null || request.body.password == null){
+            response.status(400).json({Login: "Missing username or password"});
+            return;
+        }
+
+        const user = await db.getPrep("SELECT userName, passwort FROM anhaenger WHERE userName=?", request.body.UID);
                
         if(user==null){
             response.status(400).json({Login: "Username not existing!"});
-        }else{
-            bcrypt.compare(request.body.password,user.passwort, (_error, result)=>{
-                if(result){                        
-                    apiexchange(request.body.UID, db, response);
-                  }else{
-                        response.status(400).json({Login: "False password!"})
-                    }
-                });            
-            }                   
+            return;
+        }
+        bcrypt.compare(request.body.password,user.passwort, (_error, result)=>{
+            if(!result){
+                response.status(400).json({Login: "False password!"})
+                return
+            }
+            apiexchange(request.body.UID, db, response);
+        });                              
     })
 }
 

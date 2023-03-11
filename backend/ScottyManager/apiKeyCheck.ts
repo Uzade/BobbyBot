@@ -9,12 +9,12 @@ export const apiKeyCheck= async (db: PromissingSQLite3, username:String, apiKey:
                    
     if(user==null){
         return false;
-    }else{
-        if(apiKey==user.apiKey){
-            return true;
-        }else{
-            return false;
-        }                           
-    }            
+    }
+
+    if(apiKey!=user.apiKey){
+        return false;
+    }
+    
+    return true;
     
 }
