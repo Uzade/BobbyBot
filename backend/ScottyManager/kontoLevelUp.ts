@@ -1,6 +1,6 @@
-import { Database } from "sqlite3";
+import { PromissingSQLite3 } from "promissing-sqlite3/lib";
 
-export const kontoLevelUp= (db: Database)=>{
+export const kontoLevelUp= (db: PromissingSQLite3)=>{
 
-        db.exec("UPDATE anhaenger SET opferKonto = opferKonto + 1");
+        db.execFile("ScottyManager/SQL/incrementKonto.sql");
 }

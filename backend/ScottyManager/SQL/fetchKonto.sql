@@ -1,0 +1,1 @@
+SELECT opferKonto FROM anhaenger WHERE userName=?

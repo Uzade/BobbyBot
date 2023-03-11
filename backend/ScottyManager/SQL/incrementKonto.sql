@@ -1,0 +1,1 @@
+UPDATE anhaenger SET opferKonto = opferKonto + 1
