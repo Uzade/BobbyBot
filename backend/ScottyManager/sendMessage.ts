@@ -2,15 +2,12 @@ import { Client } from "discord.js";
 import { Express } from "express";
 import { UID } from '../config.json'
 import { apiKeyCheck } from "./apiKeyCheck";
-import { Database } from "sqlite3";
 import { PromissingSQLite3 } from "promissing-sqlite3/lib";
 
-const sendMessage = (dbOld: Database, app: Express, dcClient: Client) => { 
-
-    const db = new PromissingSQLite3(dbOld);
+const sendMessage = (db: PromissingSQLite3, app: Express, dcClient: Client) => { 
 
     app.post('/sendMessage', async (req, res)  => {
-        if(!await apiKeyCheck(dbOld, req.body.UID, req.body.apiKey)){
+        if(!await apiKeyCheck(db, req.body.UID, req.body.apiKey)){
             res.status(401).json({Error: "ApiKey not matching! False command."});
             return;
         }

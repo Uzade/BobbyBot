@@ -1,9 +1,6 @@
-import { Database } from "sqlite3";
 import { PromissingSQLite3 } from "promissing-sqlite3/lib";
 
-export const apiKeyCheck= async (dbOld: Database, username:String, apiKey:String)=>{
-
-    const db= new PromissingSQLite3(dbOld);
+export const apiKeyCheck= async (db: PromissingSQLite3, username:String, apiKey:String)=>{
 
     if(apiKey==null){
         return false;
