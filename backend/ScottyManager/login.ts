@@ -26,8 +26,9 @@ export const login= (dbOld: Database, app:Express)=>{
     })
 }
 
-export const apiexchange= (username:String, db:Database, response:Response)=>{
+export const apiexchange= (username:String, dbOld:Database, response:Response)=>{
+    const db = new PromissingSQLite3(dbOld);
     const apiKey=generateApiKey({ method: 'string', min: 34, max: 61 });
-    db.exec("UPDATE anhaenger SET apiKey =\'"+apiKey+"\' WHERE userName =\'"+username+"\'");
+    db.execPrep("UPDATE anhaenger SET apiKey =? WHERE userName =?", apiKey, username);
     response.status(200).json({Login: "Login successfull!", apiKey:apiKey});
 }
