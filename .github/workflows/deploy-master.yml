@@ -14,14 +14,15 @@ jobs:
       run: npm ci
       working-directory: backend
     - name: create config
-      run: |
-        sudo cat > /config.json << ENDOFFILE
-        {
-          "token": "${{ secrets.DISCORD_TOKEN }}",
-          "UID": "${{ secrets.RECIPIENT_UID }}"
-        }
-        ENDOFFILE
-      working-directory: backend
+      uses: DamianReeves/write-file-action@master
+      with:
+        path: backend/config.json
+        contents: |
+          {
+            "token": "${{ secrets.DISCORD_TOKEN }}",
+            "UID": "${{ secrets.RECIPIENT_UID }}"
+          }
+        write-mode: overwrite
     - name: build backend
       run: npm run build
       working-directory: backend
