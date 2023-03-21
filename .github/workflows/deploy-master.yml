@@ -14,7 +14,12 @@ jobs:
       run: npm ci
       working-directory: backend
     - name: create config
-      run: ./create-config.sh
+      run: sudo cat > /config.json << ENDOFFILE
+      {
+          "token": "${{ secrets.DISCORD_TOKEN }}",
+          "UID": "${{ secrets.RECIPIENT_UID }}"
+      }
+      ENDOFFILE
       working-directory: backend
     - name: build backend
       run: npm run build
