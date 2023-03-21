@@ -3,8 +3,6 @@ name: Deploy status of master on uzade.de
 on: 
   push:
     branches: [ "master" ]
-  pull_requests:
-    branches: [ "master" ]
 
 jobs:
   build:
@@ -17,12 +15,13 @@ jobs:
       working-directory: backend
     - name: create config
       run: |
-        cat > /backend/config.json << ENDOFFILE
+        cat > /config.json << ENDOFFILE
         {
           "token": "${{ secrets.DISCORD_TOKEN }}",
           "UID": "${{ secrets.RECIPIENT_UID }}"
         }
         ENDOFFILE
+      working-directory: backend
     - name: build backend
       run: npm run build
       working-directory: backend
