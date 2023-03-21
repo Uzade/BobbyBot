@@ -1,0 +1,1 @@
+UPDATE anhaenger SET opfergaben=?, lastOpfer=CURRENT_TIMESTAMP, opferKonto=? WHERE username=?

@@ -11,6 +11,7 @@ import { getOpferData } from './ScottyManager/getOpferData';
 import { sessionKeyCheck } from './ScottyManager/SessionKeyCheck';
 import { Database } from "sqlite3";
 import { kontoLevelUp } from './ScottyManager/kontoLevelUp';
+import { PromissingSQLite3 } from "promissing-sqlite3/lib";
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] })
 
@@ -31,7 +32,7 @@ app.use(express.static('static'))
 
 app.use(express.json())
 
-const db = new Database("./BobbyBank/Karottenspeicher.db")
+const db = new PromissingSQLite3(new Database("./BobbyBank/Karottenspeicher.db"))
 
 sessionKeyCheck(db, app)
 getOpferData(db, app)

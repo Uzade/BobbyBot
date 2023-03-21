@@ -1,13 +1,21 @@
 import { Express } from "express";
-import { Database } from "sqlite3";
 import { apiKeyCheck } from "./apiKeyCheck";
+import { PromissingSQLite3 } from "promissing-sqlite3/lib";
 
-export const logout= (db: Database, app:Express)=>{
+export const logout= (db: PromissingSQLite3, app:Express)=>{
 
     app.post("/logout", async (request,response)=>{
-        if(await apiKeyCheck(db, request.body.UID, request.body.apiKey)){
-            db.exec("UPDATE anhaenger SET apiKey=NULL WHERE userName=\'"+request.body.UID+"\'");
-            response.status(200).json({Logout: "Logout successfully!"});
+
+        if(request.body.UID == null || request.body.apiKey == null){
+            response.status(400).json({Login: "Missing username or api key"});
+            return;
         }
+
+        if(!await apiKeyCheck(db, request.body.UID, request.body.apiKey)){
+            response.status(400).json({Logout: "invalid api key"})
+            return;
+        }
+        db.execPrepFile("ScottyManager/SQL/emptySingleApiKey.sql", request.body.UID);
+        response.status(200).json({Logout: "Logout successfully!"});
     })
 }
