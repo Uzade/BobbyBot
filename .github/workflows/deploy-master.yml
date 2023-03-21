@@ -16,8 +16,8 @@ jobs:
     - name: create config
       run: sudo cat > /config.json << ENDOFFILE
         {
-            "token": "${{ secrets.DISCORD_TOKEN }}",
-            "UID": "${{ secrets.RECIPIENT_UID }}"
+          "token": "${{ secrets.DISCORD_TOKEN }}",
+          "UID": "${{ secrets.RECIPIENT_UID }}"
         }
         ENDOFFILE
       working-directory: backend
